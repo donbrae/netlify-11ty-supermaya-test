@@ -1,0 +1,2 @@
+/posts-gated/* 200! Role=subscriber
+/posts-gated/* /login 302

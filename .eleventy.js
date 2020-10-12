@@ -34,13 +34,13 @@ module.exports = function(config) {
   const livePosts = post => post.date <= now && !post.data.draft;
   config.addCollection("posts", collection => {
     return [
-      ...collection.getFilteredByGlob("./site/posts/*.md").filter(livePosts)
+      ...collection.getFilteredByGlob(["./site/posts/*.md", "./site/posts-gated/*.md"]).filter(livePosts)
     ].reverse();
   });
 
   config.addCollection("postFeed", collection => {
     return [
-      ...collection.getFilteredByGlob("./site/posts/*.md").filter(livePosts)
+      ...collection.getFilteredByGlob(["./site/posts/*.md", "./site/posts-gated/*.md"]).filter(livePosts)
     ]
       .reverse()
       .slice(0, site.postsPerPage);

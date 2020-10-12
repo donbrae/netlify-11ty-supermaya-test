@@ -1,6 +1,6 @@
 // Write your javascript here...
 // ES6 will be compiled with Webpack
-
+import netlifyIdentity from 'netlify-identity-widget';
 import lozad from "lozad";
 
 const supportsLazyLoad = "loading" in document.createElement("img");
@@ -25,3 +25,14 @@ if (supportsLazyLoad || !supportsIntersectionObserver) {
   const observer = lozad(images);
   observer.observe();
 }
+
+if (netlifyIdentity) {
+    console.log("👍 netlifyIdentity available");
+    netlifyIdentity.init({
+        locale: 'en' // defaults to 'en'
+    });
+
+    const user = netlifyIdentity.currentUser();
+
+    console.log(user);
+};
