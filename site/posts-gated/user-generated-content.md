@@ -8,6 +8,8 @@ tags:
   - blog
 ---
 
+Lorem ipsum dolor sit amet consectetur adipiscing elit consequat, blandit suspendisse congue augue vivamus integer commodo sem, mauris eros condimentum aliquam habitasse suscipit mus. Netus himenaeos cubilia semper aliquam aenean rutrum sed, habitasse montes lectus quisque parturient dui, augue taciti pellentesque venenatis morbi orci. Nibh velit sodales quam vivamus auctor varius tincidunt lectus curabitur gravida dapibus, hendrerit dictumst hac nulla odio volutpat nullam vehicula leo quisque.
+
 Supermaya comes with the ability to add a bunch of rich features to your site including:
 
 - Comments
