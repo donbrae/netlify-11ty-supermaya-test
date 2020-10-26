@@ -12,6 +12,6 @@
   conditions = {Role = ["subscriber"]}
 [[redirects]]
   from = "/posts-gated/*"
-  to = "/login/"
+  to = "/login"
   status = 401
   force = true
