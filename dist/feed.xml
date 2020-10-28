@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Supermaya</title>
+  <subtitle></subtitle>
+  <link href="/feed.xml" rel="self"/>
+  <link href="/"/>
+  <updated>2019-11-01T00:00:00+00:00</updated>
+  <id></id>
+  <author>
+    <name>Mike</name>
+    <email>mike@madebymike.com.au</email>
+  </author>
+  
+    
+    <entry>
+      <title>Getting started</title>
+      <link href="/posts/getting-started/"/>
+      <updated>2019-11-01T00:00:00+00:00</updated>
+      <id>/posts/getting-started/</id>
+      <content type="html">
+        <![CDATA[
+      <p>It comes with all the blog standard features:</p>
+<ul>
+<li>Posts and Pages</li>
+<li>Pagination</li>
+<li>Tags</li>
+<li>Static server-rendered content</li>
+</ul>
+<p>A bunch of good practices:</p>
+<ul>
+<li>RSS feed</li>
+<li>*Considerate mark-up</li>
+<li>Service worker with offline content</li>
+<li>Lazy loading images</li>
+<li>Critical CSS</li>
+</ul>
+<p><em>*Considerate means semantic, accessible mark-up, written for both humans and machines.</em></p>
+<br>
+<p>Additional features:</p>
+<ul>
+<li>Seamless JavaScript and SCSS compilation (no build process)</li>
+<li>Data-driven navigation</li>
+<li>Customisable settings including theming</li>
+</ul>
+<p>Additional features:</p>
+<ul>
+<li>Comments</li>
+<li>Claps</li>
+<li>Reading List</li>
+<li>Login</li>
+</ul>
+<p>These additional features that have persistent data including user generated content. On JAMstack sites including rich content usually means complicated build processes and multiple third-party services. This doesn't sit well with me since owning my own data and tinkering with the platform is a big motivation for building a static personal site.</p>
+<p>That's why I opted to pair Supermaya with <a href="https://keystonejs.com/">KeystoneJS</a> to create a unified API that you own and manage. Each of these features are added progressively with JavaScript and will fail gracefully if not configured or the server can't be reached. You can opt-out on a per feature basis by modifying the data in <code>site/_data/site.js</code>, or on a per-page basis with front-matter.</p>
+<h2>Deploying Supermaya + Keystone</h2>
+<p>To get started deploy the <a href="https://github.com/MadeByMike/keystone-jamstack-plus">Keystone JAMstack plus starter kit</a> platform to Heroku.</p>
+<p>Once installed visit the site on Heroku and copy your Keystone API URL. Follow the instructions to automatically deploy Supermaya to Netlify where you will be asked to enter the Keystone API URL.</p>
+<p>Supermaya is designed work with the Keystone JAMstack plus platform to be a launch pad for larger ideas. Allowing you to go all the way from a simple static website to a feature rich application if you want.</p>
+<p><strong>Note</strong>: Rich features are optional. Supermaya is a perfectly good starter template for 11ty without any other services. You can deploy Supermaya on it's own and add a <code>KEYSTONE_API</code> environmental variable later if you wish.</p>
+<h2>Deploying Supermaya</h2>
+<p>To deploy Supermaya on its own you can use this link to <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MadeByMike/supermaya">deploy to Netlify</a>. Leave the <code>KEYSTONE_API</code> blank if you don't have one. Alternatively you can clone this repository and run it locally.</p>
+<h2>Starting Supermaya</h2>
+<p>To start the project run:</p>
+<pre><code>npm install
+</code></pre>
+<p>Then:</p>
+<pre><code>npm start
+</code></pre>
+<h2>Configure site information</h2>
+<p>Configure important site-wide information like the site name, description and default author information:</p>
+<pre><code>site/_data/site.js
+</code></pre>
+<h2>Configure navigation</h2>
+<p>Change the site navigation by modifying:</p>
+<pre><code>site/_data/navigation.json
+</code></pre>
+<h2>Color schemes</h2>
+<p>Supermaya includes basic theming. Select an alternative to the black and white feature colors by modifying the <code>theme</code> in:</p>
+<pre><code>site/_data/site.js
+</code></pre>
+<h2>Keystone features</h2>
+<p>If you connected Supermaya to a keystone backend you can toggle features under <code>keystone</code> in:</p>
+<pre><code>site/_data/site.js
+</code></pre>
+<h2>Add CSS</h2>
+<p>In Supermaya SCSS files are compiled on-the-fly by 11ty and added to data. This means you can write inline CSS directly into templates and partials like this: <code>&lt;style&gt;{{css[&quot;compilation-target&quot;] | safe}}&lt;/style&gt;</code>. Where &quot;compilation-target&quot; is the key added to the list of SCSS files to compile in:</p>
+<pre><code>site/_data/css.js
+</code></pre>
+<p>Each entry added to the <code>targets</code> array will be available as site data and a static file will also be written to <code>css/[compilation-target].css</code>.</p>
+<p>Source files for scss have been added to the directory <code>site/src/scss</code>.</p>
+<h2>Add JavaScript</h2>
+<p>Similar to how SCSS works, JavaScript files in Supermaya are also compiled on-the-fly using Webpack.</p>
+<p>The Webpack configuration contains a loader for <code>.js</code> files that will transpile ES6 to ES5 meaning you can safely write modern JavaScript. The Webpack configuration can be extended or modified in: <code>site/utils/compile-webpack.js</code>.</p>
+<p>Files generated by Webpack are added to site data so you can write inline JavaScript in templates and partials like this: <code>&lt;script&gt;{{css[&quot;output-filename&quot;] | safe}}&lt;/script&gt;</code>. The &quot;output-filename&quot; should be the full name of a file generated by Webpack including the extension.</p>
+<p>You can add additional entry points by modifying the <code>targets</code> array in:</p>
+<pre><code>site/_data/js.js
+</code></pre>
+<p>Each file generated will also be available as a static file at the path: <code>js/[output-filename]</code>.</p>
+<p>Source files for javascript have been added to the directory <code>site/src/js</code>.</p>
+<h2>Critical CSS</h2>
+<p>Supermaya is capable of generating criticalCSS although this is turned off by default for performance reasons. You can turn this feature on by modifying:</p>
+<pre><code>site/_data/site.js
+</code></pre>
+<h2>Why &quot;Supermaya&quot;</h2>
+<p>A friend and designer Matt Barron, helped me out with some initial design work and used it as a placeholder for the site name in early mock-ups. As usual development names grow on you. I later learned it was the name of his family dog. It's a combination of Superman and Maya, one of his kids favourite cartoon characters. That settles it, right? And here's a picture:</p>
+<img src="/supermaya.jpg" width="600"/>
+
+    ]]>
+      </content>
+    </entry>
+  
+    
+    <entry>
+      <title>Where is the build process?</title>
+      <link href="/posts/no-build-process/"/>
+      <updated>2019-10-31T00:00:00+00:00</updated>
+      <id>/posts/no-build-process/</id>
+      <content type="html">
+        <![CDATA[
+      <p>A lot of modern sites rely on tools like Sass and Babel to transpile CSS and JavaScript. They usually require build tools like Gulp or Webpack to trigger this and most larger sites have additional build steps that do anything from fetching data, to minify code, to optimise images or almost anything else.</p>
+<p>When you add static site generators to this, things can get a little weird. Most static site generators have a development server that watches for changes and will rebuild the site as needed. They are often smart and will only rebuild pages that have changed. You can end up with situations where the site generator rebuilds multiple times as each of the build steps is run.</p>
+<p>This results in complex build processes where multiple passes are required and sometimes it takes several minutes just to generate a few pages. This isn't fun and trying to get them to work together can be a lot of effort.</p>
+<p>Supermaya avoids these pitfalls by wrapping all the build processes into Eleventy itself.</p>
+<p>Eleventy has <a href="https://www.11ty.io/docs/data-global/">global data files</a> that allow asynchronous fetching and resolution of data before each build as well as <a href="https://www.11ty.io/docs/config/#transforms">transforms</a> that can completely modify the output of generated HTML.</p>
+<p>Supermaya makes use of both these features to compile Sass, Webpack JavaScript files, Generate Critical CSS, as well as minify and optimise content.</p>
+<h2>CSS</h2>
+<p>In Supermaya SCSS files are compiled on-the-fly and added to global data. This means you can write inline CSS directly into templates and partials like this: <code>&lt;style&gt;{{css[&quot;compilation-target&quot;] | safe}}&lt;/style&gt;</code>. Where <em>&quot;compilation-target&quot;</em> is the key added to the list of SCSS files to compile in the data file:</p>
+<pre><code>site/_data/css.js
+</code></pre>
+<p>Each entry in the <code>targets</code> array will also be available as a static file will written to the path <code>/css/[compilation-target].css</code>.</p>
+<p>Source files for <code>scss</code> can be found in the directory <code>site/src/scss</code>.</p>
+<h2>JavaScript</h2>
+<p>Similar to the CSS, JavaScript in Supermaya are also compiled on-the-fly and added to global data.</p>
+<p>This is done with Babel and Webpack. The Webpack configuration contains a loader for <code>.js</code> files that will transpile from ES6 to ES5 meaning you can safely write modern JavaScript. The Webpack configuration can be extended or modified in: <code>site/utils/compile-webpack.js</code>.</p>
+<p>Files generated by Webpack are added to site data so you can write inline JavaScript in templates and partials like this: <code>&lt;script&gt;{{css[&quot;output-filename&quot;] | safe}}&lt;/script&gt;</code>. The &quot;output-filename&quot; should be the full name of a file generated by Webpack including the extension.</p>
+<p>You can add additional entry points by modifying the <code>targets</code> array in:</p>
+<pre><code>site/_data/js.js
+</code></pre>
+<p>Each file generated will also be available as a static file at the path: <code>js/[output-filename]</code>.</p>
+<p>Source files for javascript have been added to the directory <code>site/src/js</code>.</p>
+<h2>Critical CSS</h2>
+<p>Supermaya is capable of generating criticalCSS although, for performance reasons, this is turned off by default. You can turn this feature on by modifying:</p>
+<pre><code>site/_data/site.js
+</code></pre>
+
+    ]]>
+      </content>
+    </entry>
+  
+    
+    <entry>
+      <title>JAMstack plus</title>
+      <link href="/posts/jamstack-plus/"/>
+      <updated>2019-10-30T00:00:00+00:00</updated>
+      <id>/posts/jamstack-plus/</id>
+      <content type="html">
+        <![CDATA[
+      <p>Traditionally adding features that have persistent data and user generated content on JAMstack sites is difficult. Many solutions involve complicated build processes and multiple third-party services.</p>
+<p>This doesn't sit well with me since owning my own data and tinkering with the platform has always a big motivation for building a personal site.</p>
+<p>Even good platforms and services don't always match what I'm trying to build and since I can't modify these services I'm forced to pre-process or post-process data.</p>
+<p>This is where JamStack sites can get complicated fast. Small compromises and clever work-arounds stack-up. Eventually some static sites can feel more stifling than the CMS monoliths and server configurations that caused many of us to move to static in the first place.</p>
+<p>I know I'm not the only one that has noticed this trend or remarked that the growing complexity of JAMstack sites is now often comparable to the set-up and matainance costs of platforms like WordPress. But usually without anywhere close to the equivalent editoral and administration experience.</p>
+<p>Despite these gripes, I still really love the simplicity of static sites, together with the fact they are 100% configurable and self-managed. That's the feeling I want and not the feeling I've been getting from JAMstack recently.</p>
+<p>I want a static site but I also want the ability to add features like comments, or likes or to take ownership of data I' normally share through social media.</p>
+<p>For a long time I've wanted to be able to set-up a tailored back-end or CMS experience with the equivlent easy and flexibly I experienced when I first used Jekyll.</p>
+<p>The idea is to extend the things I like about JAMstack into an easily deployable back-end platform that can be paired with a static front-end. I call this idea <strong>JAMstack Plus</strong> and the things I's expect from a platform include:</p>
+<ul>
+<li>Ability to self host</li>
+<li>Largely config driven set-up</li>
+<li>Headless APIs</li>
+<li>Unopinionated about content types or data</li>
+<li>Completely configurable if required</li>
+</ul>
+<p>For me <a href="https://keystonejs.com/">Keystone 5</a> ticked many of these boxes. With an <code>index.js</code> file and a few lines of code I can define a content structure, configure options for data storage, get an API and set-up an admin interface that exactly matches my content.</p>
+<p>I set-out to build on this and created the <a href="https://github.com/MadeByMike/keystone-jamstack-plus">Keystone JAMstack plus starter kit</a> platform. This is an example project that includes a bunch of services you might want to incorporate on a static. It's configured with access-control and aims to provide sensible defaults that protect user data. Feel free to build on this platform or take the idea of JAMstack plus and build your own.</p>
+
+    ]]>
+      </content>
+    </entry>
+  
+    
+    <entry>
+      <title>User generated content</title>
+      <link href="/posts-gated/user-generated-content/"/>
+      <updated>2019-10-30T00:00:00+00:00</updated>
+      <id>/posts-gated/user-generated-content/</id>
+      <content type="html">
+        <![CDATA[
+      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit consequat, blandit suspendisse congue augue vivamus integer commodo sem, mauris eros condimentum aliquam habitasse suscipit mus. Netus himenaeos cubilia semper aliquam aenean rutrum sed, habitasse montes lectus quisque parturient dui, augue taciti pellentesque venenatis morbi orci. Nibh velit sodales quam vivamus auctor varius tincidunt lectus curabitur gravida dapibus, hendrerit dictumst hac nulla odio volutpat nullam vehicula leo quisque.</p>
+<p>Supermaya comes with the ability to add a bunch of rich features to your site including:</p>
+<ul>
+<li>Comments</li>
+<li>Claps</li>
+<li>Reading List</li>
+<li>Login</li>
+</ul>
+<p>These <em>optional</em> features are powered by a <a href="https://github.com/MadeByMike/keystone-jamstack-plus">JAMstack Plus starter kit</a> which is powered by <a href="https://keystonejs.com/">Keystone 5</a> a Node based application development framework and CMS.</p>
+<p>Keystone is a back-end service and therefore can't be deployed to Netlify. Not all websites need a back-end, but what you get by adding this additional layer to the stack is the ability to store and manage user generated content.</p>
+<p>If you want to add any kind of rich features to a static site and want to retain control of the platform, and ownership of data, Keystone is a good choice. It's open source and highly flexible in ways that third-party services can't provide.</p>
+<p>To help add user generated content to static sites I built the <a href="https://github.com/MadeByMike/keystone-jamstack-plus">Keystone JAMstack Plus starter kit</a> for Keystone that ties in with Supermaya. It allows you to skip a lot of the overhead of deploying and hosting a CMS like WordPress or attempting to unify many different APIs in a build process. Keystone's package based architecture means you can build tiny streamlined CMS and API designed specifically for your content.</p>
+<p>Don't need rich features? Although Supermaya has ties into Keystone it absolutely stands on it's own as a great static site template. It was not created for Keystone but it was created to make it a little easier to go beyond purely static content if you need.</p>
+<p>If you've already deployed Supermaya you will need to add a <code>KEYSTONE_API</code> environmental variable to your front-end.</p>
+<p><strong>Note</strong>: Rich features are optional. Supermaya is a perfectly good starter template for 11ty without any other services.</p>
+
+    ]]>
+      </content>
+    </entry>
+  
+    
+    <entry>
+      <title>Style architecture</title>
+      <link href="/posts-gated/style-architecture/"/>
+      <updated>2019-10-29T00:00:00+00:00</updated>
+      <id>/posts-gated/style-architecture/</id>
+      <content type="html">
+        <![CDATA[
+      <p>Supermaya doesn't have a lot of specific CSS. The vast majority of the styles relate to layout with only a few classes having thematic or presentational styles. It's designed this way so that you can extend it by adding presentational styles.</p>
+<p>If you want to extend the styles in this project you might notice they are written in a particular way. You might find this un-familiar or difficult to reason about at first. I've use specific conventions around style architecture that I've found to be scalable and maintainable for any size project. If you want to follow the same conventions I explain the methodologies here. Test.</p>
+<h2>Layout classes</h2>
+<p>Layout classes in Supermaya are denoted with an <code>l-</code> prefix. I'm pretty specific about what a layout class is. It should have only <code>display</code>, <code>grid</code> or <code>flex</code> properties, sometimes <code>width</code>, <code>height</code> or <code>padding</code>, but never presentational properties like <code>background</code> or <code>font-size</code> or <code>color</code>. It should be mostly intuitive what is layout and what is presentational.</p>
+<p>I also believe that <strong>layout components should own both sides of the parent &gt; child relationship</strong>. What this means is layout classes are responsible for applying layout properties to child elements. The reason for this is I try wherever possible to co-locate layout concerns. In modern CSS layout there is always a parent child relationship E.g. <code>flex-container</code> &gt; <code>flex-item</code>, or <code>grid-container</code> &gt; <code>grid-item</code>. When these styles are not co-located, this relationship is like a hidden dependency. Things break when we modify the styles on a child item or use it in a different container.</p>
+<p>By separating layout styles from presentation styles and co-locating layout concerns we're able to refactor HTML and CSS much more freely. Adding items to a layout container is usually enough for them to acquire the correct styles for the child items. In practical terms it usually looks something like this:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">.l-component</span> <span class="token punctuation">{</span><br>  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span><br>  <span class="token property">flex-wrap</span><span class="token punctuation">:</span> wrap<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><span class="token selector">.l-component > *</span> <span class="token punctuation">{</span><br>  <span class="token property">flex-basis</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>Liberal use of <code>&gt; *</code> will target all immediate child elements and you can use <code>&gt; .l-child-layout</code> where you need to be more specific.</p>
+<p>I try to avoid child items that are presentational elements. For example if I was adding a styled button to a flex container I might wrap it in a child element, such as <code>l-media-object-button</code> in the example below:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>l-media-object<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>l-media-object-button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Some text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>This helps avoid the temptation to add layout styles to the presentational component <code>button</code> later. Without it, when we want to add more specific layout classes to the media object with a button we need to refactor the HTML to add a class to the button container.</p>
+<h3>Layout modifiers</h3>
+<p>Another approach to styling specific child elements in a layout component is to use a modifier class such as <code>l-media-object--button</code> a technique borrowed from OOCSS and BEM.</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>l-media-object l-media-object--button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Some text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>Here <code>l-media-object--button</code> is a variation of <code>l-media-object</code> where the first child is always a button. we use this class to override the default <code>flex-basis</code> on the <code>first-child</code> within the container:</p>
+<pre class="language-css"><code class="language-css"><span class="token selector">.l-media-object</span> <span class="token punctuation">{</span><br>  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><span class="token selector">.l-media-object > *:first-child</span> <span class="token punctuation">{</span><br>  <span class="token property">flex-basis</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><span class="token selector">.l-media-object--button > *:first-child</span> <span class="token punctuation">{</span><br>  <span class="token property">flex-basis</span><span class="token punctuation">:</span> 200px<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>I've used both modifier classes and nested layout containers in Supermaya. The important thing is to keep the separation of layout and presentation and co-locate hiddent layout dependencies wherever possible. I strongly suggest avoiding layout and presentation classes on the same element.</p>
+<p>When it's done well it should be possible to move towards a common set of reusable abstractions such as described by <a href="https://every-layout.dev/">https://every-layout.dev/</a>. This results in far less CSS which is easier to maintain.</p>
+<h2>Presentational classes</h2>
+<p>Presentational classes in Supermaya are not prefixed. Any class without an <code>l-</code> prefix is a presentational class or a utility class (or both). Presentational classes should not have <code>width</code>, <code>height</code>, <code>padding</code>, <code>display</code> or any other layout properties. This sometimes feels hard to do when you are not used to it. When it's done properly it means that all presentational components will be completely size-agnostic. They should be able to fill the space available inside any layout container.</p>
+<p>If they don't have <code>padding</code> or <code>margin</code> it means the layout class is responsible for spacing and alignment. It should then be possible to move components around the page without refactoring. If something is not aligned, or spacing is not right it means the layout container is wrong.</p>
+<p>Some of the hardest components to work with in this way are icons and images. For these I still recommend avoiding width and heights. If it's really needed I recommend using a utility classes.</p>
+<h2>Utility classes</h2>
+<p>There are not many utility classes in Supermaya which is why they are not prefixed. If you need more, it might be a good idea to prefix them with something like <code>u-</code>. Utility classes can be combined with presentational components or used on their own. They should do just one thing. Some examples are:</p>
+<ul>
+<li>apply the theme colors</li>
+<li>hide elements intended for screen-readers</li>
+<li>Set a size variation on an icon.</li>
+</ul>
+<p>Use this as an escape hatch when needed but try wherever possible to follow the principals regarding the separation of layout and presentation.</p>
+<h2>Use of variables</h2>
+<p>There are two types of variables used in Supermaya. Static <code>scss</code> variables and dynamic <code>custom-properties</code>. I try to define all variables including custom properties at the top of the a stylesheet. I keep the number of global variables to an absolute minimum.</p>
+<p>If anything in my CSS changes because of a dynamic condition such as a media-query I make this a custom property. This allow me to define the logic separate to the presentation. An example looks like this:</p>
+<pre class="language-scss"><code class="language-scss"><span class="token property"><span class="token variable">$bp-container</span></span><span class="token punctuation">:</span> 800px<span class="token punctuation">;</span><br><br><span class="token selector">.l-container </span><span class="token punctuation">{</span><br>  <span class="token property">--container-margin</span><span class="token punctuation">:</span> 0.5rem<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token variable">$bp-container</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span><br>  <span class="token selector">.l-container </span><span class="token punctuation">{</span><br>    <span class="token property">--container-margin</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span><br><br><span class="token selector">.l-container </span><span class="token punctuation">{</span><br>  <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--container-margin<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>Organising variables in this way means that there is only once place where I apply declarations to a class. I don't need to search the CSS to find out what is changing. Anywhere I see a <code>var()</code> statment I know this is a dynamic property and I can look to the top of the page to see the logic. If you are interested in finding out more about this I wrote a <a href="https://www.madebymike.com.au/writing/using-css-variables/">blog post about this approach</a>.</p>
+
+    ]]>
+      </content>
+    </entry>
+  
+</feed>
