@@ -6,10 +6,9 @@
   KEYSTONE_API = "Paste your Keystone API URL here"
 [[redirects]]
   from = "/posts-gated/*"
-  to = "/posts-gated/:splat"
   status = 200
-  force = true
   conditions = {Role = ["subscriber"]}
+  force = true
 [[redirects]]
   from = "/posts-gated/*"
   to = "/login"
