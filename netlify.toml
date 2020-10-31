@@ -13,4 +13,4 @@
   from = "/posts-gated/*"
   to = "/login/"
   status = 401
-  force = true
+  force = false
