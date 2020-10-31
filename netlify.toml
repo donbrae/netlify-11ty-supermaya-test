@@ -8,7 +8,7 @@
   from = "/posts-gated/*"
   status = 200
   conditions = {Role = ["subscriber"]}
-  force = false
+  force = true
 [[redirects]]
   from = "/posts-gated/*"
   to = "/login/"
